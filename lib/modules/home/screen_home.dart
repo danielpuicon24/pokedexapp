@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedexapp/config/db/db_pokedex.dart';
 import 'package:pokedexapp/modules/home/provider_home.dart';
 import 'package:pokedexapp/shared/modules/pokemon/provider/provider_pokemon.dart';
 import 'package:pokedexapp/shared/widgets/pokemon/pokemon_card.dart';
@@ -14,18 +15,18 @@ class ScreenHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProviderPokemon providerPokemon =
-    Provider.of<ProviderPokemon>(context);
+    ProviderPokemon providerPokemon = Provider.of<ProviderPokemon>(context);
     ProviderHome provider = ProviderHome(providerPokemon: providerPokemon);
     return ChangeNotifierProvider.value(
-        value: provider,
-        builder: (context, _) {
-          return Consumer<ProviderHome>(builder: (context, provider, value) {
-            return _HomeMenu(
-              provider: provider,
-            );
-          });
-        });
+      value: provider,
+      builder: (context, _) {
+        return Consumer<ProviderHome>(
+          builder: (context, provider, value) {
+            return _HomeMenu(provider: provider);
+          },
+        );
+      },
+    );
   }
 }
 
@@ -44,6 +45,7 @@ class __HomeMenuState extends State<_HomeMenu> {
   @override
   void initState() {
     super.initState();
+    DBPokedex.db.initDB();
     widget.provider.getDataPokemon(currentPokemonId);
     _percent = 0.0;
   }
@@ -57,7 +59,7 @@ class __HomeMenuState extends State<_HomeMenu> {
 
   void loadPreviousPokemon() {
     setState(() {
-      if(currentPokemonId > 1){
+      if (currentPokemonId > 1) {
         currentPokemonId--;
         widget.provider.getDataPokemon(currentPokemonId);
       }
@@ -73,13 +75,11 @@ class __HomeMenuState extends State<_HomeMenu> {
 
           if (provider.providerPokemon.status ==
               EnumStatusDataLoading.loading) {
-            return Center(child: CustomInputLoadingInput(size: 50,));
+            return Center(child: CustomInputLoadingInput(size: 50));
           }
-          if (provider.providerPokemon.status ==
-              EnumStatusDataLoading.finish &&
+          if (provider.providerPokemon.status == EnumStatusDataLoading.finish &&
               pokemon.name == "") {
-            return Center(
-                child: Text("No hay información del pokemon"));
+            return Center(child: Text("No hay información del pokemon"));
           }
 
           return GestureDetector(
@@ -95,13 +95,13 @@ class __HomeMenuState extends State<_HomeMenu> {
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 500),
               transitionBuilder: (widget, animation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: widget,
-                );
+                return FadeTransition(opacity: animation, child: widget);
               },
-              child:  PokemonMain(pokemon: pokemon, factorChange: _percent, idPokemon: currentPokemonId,),
-
+              child: PokemonMain(
+                pokemon: pokemon,
+                factorChange: _percent,
+                idPokemon: currentPokemonId,
+              ),
             ),
           );
         },
