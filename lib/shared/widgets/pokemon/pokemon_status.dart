@@ -19,7 +19,7 @@ class PokemonStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     return Container(
-      width: width * .32,
+      width: width * .33,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: color),

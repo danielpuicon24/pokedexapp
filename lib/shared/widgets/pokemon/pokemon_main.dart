@@ -83,7 +83,7 @@ class _PokemonMainState extends State<PokemonMain> {
             bottom: bottom,
             child: Center(
               child: Container(
-                width: size.width * .74,
+                width: size.width * .77,
                 padding: EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
                   color: AppColors.white,
