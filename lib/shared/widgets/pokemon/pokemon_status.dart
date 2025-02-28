@@ -19,7 +19,7 @@ class PokemonStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     return Container(
-      width: width * .287,
+      width: width * .32,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(color: color),
@@ -33,7 +33,7 @@ class PokemonStatus extends StatelessWidget {
           Visibility(
             visible: isStatName,
             child: Container(
-              width: width * .18,
+              width: width * .2,
               padding: EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: color,
@@ -57,6 +57,7 @@ class PokemonStatus extends StatelessWidget {
                 color: AppColors.textPrimaryColor,
               ),
               textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
             ),
           )
         ],

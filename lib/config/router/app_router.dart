@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:pokedexapp/modules/favorites/favorite_screen.dart';
+import 'package:pokedexapp/shared/modules/pokemon/dominio/entidades/entidad_pokemon.dart';
 import '../../modules/details/screen_details.dart';
 import '../../modules/home/screen_home.dart';
 import '../constants/const_name_router.dart';
@@ -15,9 +17,9 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: ConstNameRouter.details,
-      builder: (context, GoRouterState state) {
-        return PokemonDetails();
+      path: ConstNameRouter.favorites,
+      builder: (context, state) {
+        return FavoriteScreen();
       },
     ),
   ],
